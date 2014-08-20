@@ -1,7 +1,5 @@
 require 'csv'
 require 'sinatra'
-require 'sinatra/reloader'
-require 'pry'
 
 # Create pages for:
 # - Page that lists all the artists & links to artist's page
