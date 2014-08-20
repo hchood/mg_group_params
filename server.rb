@@ -40,6 +40,28 @@ def read_artists_from(filename)
   artists
 end
 
+def get_artist(filename, name)
+  artists = read_artists_from(filename)
+  genre = artists[name][:genre]
+
+  { name: name, genre: genre }
+end
+
+
+# [ {name: 'One', artist: 'U2'} ]
+def get_songs_for(filename, artist_name)
+  songs = []
+
+  CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
+    if row[:artist] == artist_name
+      songs << row.to_hash
+    end
+  end
+
+  songs
+end
+
+# GET '/artists'
 get '/artists' do
   # create any variables we need to display in the view
   @artists = read_artists_from('artists.csv') # read in the artists from the artists csv
@@ -48,22 +70,11 @@ get '/artists' do
   erb :artists
 end
 
-# get '/:artist' do
 
-# end
+# GET '/artists/U2'
+get '/artists/:artist' do
+  @artist = get_artist('artists.csv', params[:artist])
+  @songs = get_songs_for('songs.csv', params[:artist])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  erb :artist
+end
