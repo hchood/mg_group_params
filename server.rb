@@ -1,7 +1,4 @@
-require 'sinatra'
-require 'shotgun'
 require 'csv'
-require 'pry'
 
 # Create pages for:
 # - Page that lists all the artists & links to artist's page
